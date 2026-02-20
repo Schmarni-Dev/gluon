@@ -1,0 +1,8 @@
+[package]
+name = "gluon-wire"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+binderbinder.workspace = true
+thiserror = "2.0.18"
