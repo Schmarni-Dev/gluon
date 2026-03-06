@@ -15,7 +15,8 @@ binderbinder.workspace = true
 chumsky = "0.12.0"
 
 [workspace.dependencies]
-binderbinder = { path = "../binderbinder" }
+# binderbinder = { path = "../binderbinder" }
+binderbinder.git = "https://github.com/technobaboo/binderbinder"
 gluon-binder.path = "."
 gluon-wire.path = "./gluon-wire"
 gluon-codegen-rust.path = "./gluon-codegen-rust"
