@@ -23,7 +23,7 @@ impl gluon_wire::GluonConvertable for Test {
 impl Test {
     pub fn quit(&self) {
         let mut builder = gluon_wire::GluonDataBuilder::new();
-        self.0.device().transact_one_way(&self.0, 0u32, builder.to_payload()).unwrap();
+        self.0.device().transact_one_way(&self.0, 8u32, builder.to_payload()).unwrap();
     }
     pub async fn ping(&self) -> () {
         let obj = binderbinder::binder_object::ToBinderObjectOrRef::to_binder_object_or_ref(
@@ -33,7 +33,7 @@ impl Test {
                 let mut builder = gluon_wire::GluonDataBuilder::new();
                 let reader = obj
                     .device()
-                    .transact_blocking(&obj, 1u32, builder.to_payload())
+                    .transact_blocking(&obj, 9u32, builder.to_payload())
                     .unwrap()
                     .1;
                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
@@ -50,7 +50,7 @@ impl Test {
                 input.write(&mut builder).unwrap();
                 let reader = obj
                     .device()
-                    .transact_blocking(&obj, 2u32, builder.to_payload())
+                    .transact_blocking(&obj, 10u32, builder.to_payload())
                     .unwrap()
                     .1;
                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
@@ -68,7 +68,7 @@ impl Test {
                 input.write(&mut builder).unwrap();
                 let reader = obj
                     .device()
-                    .transact_blocking(&obj, 3u32, builder.to_payload())
+                    .transact_blocking(&obj, 11u32, builder.to_payload())
                     .unwrap()
                     .1;
                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
@@ -170,7 +170,7 @@ impl gluon_wire::GluonConvertable for Test2 {
 impl Test2 {
     pub fn quit(&self) {
         let mut builder = gluon_wire::GluonDataBuilder::new();
-        self.0.device().transact_one_way(&self.0, 0u32, builder.to_payload()).unwrap();
+        self.0.device().transact_one_way(&self.0, 8u32, builder.to_payload()).unwrap();
     }
     pub async fn ping(&self) -> () {
         let obj = binderbinder::binder_object::ToBinderObjectOrRef::to_binder_object_or_ref(
@@ -180,7 +180,7 @@ impl Test2 {
                 let mut builder = gluon_wire::GluonDataBuilder::new();
                 let reader = obj
                     .device()
-                    .transact_blocking(&obj, 1u32, builder.to_payload())
+                    .transact_blocking(&obj, 9u32, builder.to_payload())
                     .unwrap()
                     .1;
                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
@@ -197,7 +197,7 @@ impl Test2 {
                 input.write(&mut builder).unwrap();
                 let reader = obj
                     .device()
-                    .transact_blocking(&obj, 2u32, builder.to_payload())
+                    .transact_blocking(&obj, 10u32, builder.to_payload())
                     .unwrap()
                     .1;
                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
@@ -218,7 +218,7 @@ impl Test2 {
                 input.write(&mut builder).unwrap();
                 let reader = obj
                     .device()
-                    .transact_blocking(&obj, 3u32, builder.to_payload())
+                    .transact_blocking(&obj, 11u32, builder.to_payload())
                     .unwrap()
                     .1;
                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);

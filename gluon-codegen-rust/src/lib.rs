@@ -150,7 +150,7 @@ pub fn gen_interface(interface_name: &str, def: &Interface) -> proc_macro2::Toke
                 .returns
                 .as_ref()
                 .map(|v| v.iter().map(|v| gen_type(&v.ty)).collect::<Vec<_>>());
-            let i = i as u32;
+            let i = i as u32 + 8;
             // TODO: doc string on method
             match return_types {
                 Some(types) => {
