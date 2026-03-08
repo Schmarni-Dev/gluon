@@ -139,11 +139,11 @@ pub fn gen_interface(interface_name: &str, def: &Interface) -> proc_macro2::Toke
                 quote! {
                     #name: #type_def
                 }
-            });
+            }).collect::<Vec<_>>();
             let params_write = method.params.iter().map(|param| {
                 let name = format_ident!("{}", param.name.to_case(Case::Snake));
                 quote! {#name.write(&mut builder).unwrap();}
-            });
+            }).collect::<Vec<_>>();
             let name = format_ident!("{}", method.name.to_case(Case::Snake));
             // TODO: gen return docs and names into main fn docs?
             let return_types = method
@@ -169,6 +169,7 @@ pub fn gen_interface(interface_name: &str, def: &Interface) -> proc_macro2::Toke
                             quote! {(#(#types),*)}
                         }
                     };
+                    let blocking_name = format_ident!("{name}_blocking");
                     quote! {
                         pub async fn #name(&self, #(#params),*) -> #fn_return {
                             let obj = binderbinder::binder_object::ToBinderObjectOrRef::to_binder_object_or_ref(&self.0);
@@ -179,6 +180,14 @@ pub fn gen_interface(interface_name: &str, def: &Interface) -> proc_macro2::Toke
                                 let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
                                 #return_tuple
                             }).await.unwrap()
+                        }
+                        pub fn #blocking_name(&self, #(#params),*)-> #fn_return {
+                            let obj = binderbinder::binder_object::ToBinderObjectOrRef::to_binder_object_or_ref(&self.0);
+                            let mut builder = gluon_wire::GluonDataBuilder::new();
+                            #(#params_write)*
+                            let reader = obj.device().transact_blocking(&obj, #i, builder.to_payload()).unwrap().1;
+                            let mut reader = gluon_wire::GluonDataReader::from_payload(reader);
+                            #return_tuple
                         }
                     }
                 }

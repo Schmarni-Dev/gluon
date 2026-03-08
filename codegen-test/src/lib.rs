@@ -9,6 +9,7 @@ use gluon_wire::GluonDataReader;
 use crate::protocol::TestHandler;
 
 mod protocol;
+#[derive(Debug)]
 struct TestHandlerImpl {}
 
 impl TestHandler for TestHandlerImpl {
